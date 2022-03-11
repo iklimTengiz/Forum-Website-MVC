@@ -1,11 +1,17 @@
 # Forum-Website-MVC
 MVC forum web site with admin panel. Basic. (bootstrap)
+------------------------------------------------------------------------------
+Exist User; 
+User Name: RikaFrude
+Password: 1234
+
 CONTACT FORM -------------------------------------------------------------------------
 Mail and password areas must change with real mail and password.
 Home Controller -> ActionResult iletisim (Contorller) >
  		mail.To.Add("MAIL"); //Kime mail gönderilecek.
                 mail.From = new MailAddress("MAİL", "YOUR WEB SİTE DOMAİN", System.Text.Encoding.UTF8);
                 smp.Credentials = new NetworkCredential("MAIL", "PASSWORD");
+
 
 
 DATABASE CONNECTİON-----------------------------------------------------------------------
