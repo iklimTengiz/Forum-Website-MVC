@@ -1,0 +1,69 @@
+﻿@model alenen.Konular
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<p><i style="color:orangered">" @Model.konuad "</i>adlı konuyu düzenliyorsunuz.</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.konuid)
+    @Html.HiddenFor(model => model.olusturanid)
+    @Html.HiddenFor(model => model.resim)
+    @Html.HiddenFor(model => model.olustarih)<!---Bu zıkkım updatete alanı null yapmadan yazmanı sağlıyor-->
+
+
+
+    <div class="form-group">
+        <p class="col-md-2">Yorum</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.yorum, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.yorum, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <p class="col-md-2">Konu Adı</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.konuad, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.konuad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <p class="col-md-2">Kategori</p>
+        <div class="col-md-10">
+            @Html.DropDownList("kategoriid", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.kategoriid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+
+    <div class="form-group">
+        <p class="col-md-2">Oluşturulma Tarihi</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.olustarih, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.olustarih, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Kaydet" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Listeye Dön", "Index")
+</div>

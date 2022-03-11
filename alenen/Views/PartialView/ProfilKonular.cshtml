@@ -1,0 +1,53 @@
+﻿@model IEnumerable<alenen.Konular>
+    @{ 
+        var isLogin = (bool)ViewBag.IsLogin;
+    }
+
+<div class="post-topbar">
+    <div class="user-picy">
+        <h1>Son Eklediğiniz Konular</h1>
+
+
+    </div><!--post-st end-->
+    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <i class="fa fa-2x fa-arrow-circle-down" style="float:right;"></i>
+       
+    </button>
+</div><!--post-topbar end-->
+<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+    @foreach (var item in Model)
+    {
+        var usr = Session["LoginUser"] as alenen.User;
+        <div class="posts-section">
+            <div class="post-bar">
+
+                <div class="post_topbar">
+                    <div class="usy-dt">
+
+                        <img src="~/Content/images/uploads/kullaniciresim/@item.User.resim" alt="">
+                        <div class="usy-name">
+                            <h3>@item.User.kadi</h3>
+                            <h5>@item.Kategori.kategoriad</h5>
+                            <span><img src="~/Content/images/clock.png" alt="" /> @item.olustarih</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="job_descp">
+                    <h3>@item.konuad</h3>
+                    <p>@item.yorum</p>
+
+                </div>
+
+                <div class="job-status-bar">
+             
+                    <a href="/Konular/@item.konuad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-").Replace(",","-").Replace("'","-").Replace("}","-").Replace("*","-").Replace("_","-").Replace("=","-").Replace("$","-").Replace("#","-").Replace("%","-").Replace("&","-").Replace("[","-").Replace("]","-").Replace(".","-")/@item.konuid"><i class="fa fa-eye"></i>Tümünü Gör</a>
+                </div>
+            </div><!--post-bar end-->
+
+
+
+        </div><!--posts-section end-->
+    }
+    </div>

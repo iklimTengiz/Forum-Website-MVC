@@ -1,0 +1,43 @@
+.golgeli-kutu {
+    border-radius: 8px;
+    margin-left: 0px;
+    margin-top: 66px;
+    box-shadow: 2px 2px 6px #000;
+    width: 400px;
+    padding: 22px;
+    font: 12px Arial, Helvetica, sans-serif;
+    background: #4CAF50;
+    font-family: "Roboto", sans-serif;
+    color: white;
+    position: center;
+    font: 12px Arial, Helvetica, sans-serif;
+}
+    .golgeli-kutu button {
+        float: right;
+        background: #DF9433;
+        font-size: 17px;
+        height: 27px;
+        width: 101px;
+        border: none;
+        border-radius: 4px;
+        margin-top: -16px;
+        text-align: center;
+        color: white;
+    }
+
+                    .golgeli-kutu label {
+                        font-size: 17px;
+                        font-family: inherit;
+                        margin-bottom: 5px;
+                    }
+    .golgeli-kutu input {
+        width: 364px;
+        margin-bottom: 5px;
+        padding: 7px;
+        font-size: 17px;
+        color: #4f4f4f;
+
+        border: none;
+        border-radius: 8px;
+        font:  Arial, Helvetica, sans-serif;
+    }

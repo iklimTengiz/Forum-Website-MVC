@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1e0cf189bd48416e87c652a923d7e542" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="AlenenDBModel.AnaKategori" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlenenDBModel.Begeni" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlenenDBModel.Cinsiyet" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlenenDBModel.Kategori" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlenenDBModel.Konular" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlenenDBModel.UserActivation" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlenenDBModel.User" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AlenenDBModel.Yorum" Width="1.5" PointX="10.5" PointY="2.5" IsExpanded="true" />
+        <AssociationConnector Association="AlenenDBModel.FK_Kategori_AnaKategori" ManuallyRouted="false" />
+        <AssociationConnector Association="AlenenDBModel.FK_Begeni_user" ManuallyRouted="false" />
+        <AssociationConnector Association="AlenenDBModel.FK_yorum_Begeni" ManuallyRouted="false" />
+        <AssociationConnector Association="AlenenDBModel.FK_Users_Cinsiyet" ManuallyRouted="false" />
+        <AssociationConnector Association="AlenenDBModel.FK_konuid_kategoriid" ManuallyRouted="false" />
+        <AssociationConnector Association="AlenenDBModel.FK_Konular_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AlenenDBModel.FK_yorumid_konuid" ManuallyRouted="false" />
+        <AssociationConnector Association="AlenenDBModel.FK_yorumid_userid" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

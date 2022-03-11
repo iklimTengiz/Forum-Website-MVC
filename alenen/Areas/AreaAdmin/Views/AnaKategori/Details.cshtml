@@ -1,0 +1,36 @@
+﻿@model alenen.AnaKategori
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+<div>
+
+    <p><i style="color:orangered">" @Model.anakatad "</i>adlı ana KAtegori</p>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ana Kategori Adı
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.anakatad)
+        </dd>
+
+        <dt>
+            Resim:
+        </dt>
+
+        <dd>
+            <img src="/Content/images/@Model.resim" style="width:50px; height:auto;" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.anakatid }) |
+    @Html.ActionLink("Listeye Dön", "Index")
+</p>

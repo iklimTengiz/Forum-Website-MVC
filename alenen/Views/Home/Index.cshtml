@@ -1,0 +1,148 @@
+﻿@model alenen.Konular
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+<div class="space"></div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+        <div class="main-left-sidebar no-margin">
+            @Html.Action("SolKonuMenusu", "PartialView")
+            @Html.Action("BannerSol", "PartialView")
+            @Html.Action("SolKategoriMenu", "PartialView")
+
+
+
+
+
+        </div>
+        <!--KONU EKLE PARTİAL VİEV BURAya GELİCEKK-->
+
+    </div>
+
+
+    <div class="col-lg-9 col-md-8 pd-left-none no-pd">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Content/images/slider2.png" class="d-block w-100" alt="First slide" />
+
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="~/Content/images/slider1.png" alt="Second slide">
+                </div>
+
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Önceki</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Sonraki</span>
+            </a>
+        </div>
+        <div class="space"></div>
+        <div class="main-ws-sec">
+            <div class="post-topbar">
+
+
+                <div class="user-picy">
+                    <h3> İsterseniz yeni konular açarak sorularınızı kişilere iletebilirsiniz.</h3>
+                </div>
+                <div class="post-st">
+                    <ul>
+                        @{
+                            if (Session["LoginUser"] == null)
+                            {
+                                <li><a class="active " href="/UyeOl" title="">Yeni Ekle</a></li>
+                            }
+
+                            else
+                            {
+                                <li><a class="post-jb active" href="#" title="">Yeni Ekle</a></li>
+
+                            }
+
+                        }
+
+
+                    </ul>
+                </div><!--post-st end-->
+
+            </div>
+
+
+            @Html.Action("AnasayfaKonular", "Home")
+
+        </div>
+    </div>
+</div>
+
+
+
+<!---BURASI ,PARTİAL VİEW OLUCAK-->
+
+<div class="post-popup job_post">
+
+    <div class="post-project">
+        <h3>Yeni Konu Ekle</h3>
+        <div class="post-project-fields">
+
+            @using (Html.BeginForm())
+            {<div class="space"></div>
+                <div class="row">
+                    @Html.AntiForgeryToken()
+
+
+                    <div class="inp-field">
+
+                        Kategori:
+                        <div class="col-md-12">
+                            @Html.DropDownList("kategoriid", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.kategoriid, "", new { @class = "text-danger" })
+                        </div>
+                        Konu Adı:
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.konuad, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.konuad, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    Yorumunuz:
+                    <div class="col-md-12">
+                        @Html.TextAreaFor(model => model.yorum, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.yorum, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+
+
+
+                    <div class="col-lg-12">
+
+                        <input type="submit" value="Ekle" class="btn btn-dark" />
+
+
+                    </div>
+                    <div class="space"></div>
+                </div>
+            }
+
+
+        </div><!--post-project-fields end-->
+        <a href="#" title=""><i class="la la-times-circle-o"></i></a>
+    </div><!--post-project end-->
+</div><!--post-project-popup end-->
+<!---BURASI ,PARTİAL VİEW OLUCAK-->
+

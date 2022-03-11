@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+
+<style>
+    .uye-giris {
+        margin-top: 10%;
+    }
+
+    .post-project h2 {
+        float: left;
+        width: 100%;
+        background-color: #3D3C3C;
+        color: #fff;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 20px 0;
+    }
+
+    .post-project-fields2 {
+        float: left;
+        width: 100%;
+        padding: 30px 20px;
+        background-color: #fff;
+    }
+</style>
+<!---BURASI ,PARTİAL VİEW OLUCAK-->
+<div class="row">
+    <div class="uye-giris col-md-10">
+        <div class="post-project">
+            <h2><i class="fa fa-lock"></i> Giriş Yap</h2>
+            <div class="post-project-fields post-project-fields2  " style=" width: 100%;">
+                <form method="post" action="/uyegiris">
+                    <div class="row">
+                        @{
+                            if (ViewBag.Error != null)
+                            {
+                                <div class="alert alert-danger">
+                                    @ViewBag.Error
+                                </div>
+                            }
+
+                        }
+
+
+                        <div class="col-md-12">
+
+
+                            @Html.Label("Kullanıcı Adı:", null, new { @class = "control-label col-md-3 " })
+
+
+                            @Html.TextBox("kadi", null, new { id = "kadi", @class = " form-control  ", placeholder = "Kullanıcı Adı", name = "kadi", type = "text" })
+
+                        </div>
+
+                      
+
+                            <div class="form-group col-md-12">
+                                @Html.Label("Şifre:", null, new { @class = "control-label col-md-3 " })
+                                <div >
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="validationTooltipUsernamePrepend">  <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i></span>
+                                        </div>
+                                        @Html.TextBox("sifre", null, new { id = "sifre", @class = "form-control ", placeholder = "Şifreniz", name = "sifre", type = "password" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br />
+
+
+                    
+
+                        <div class="col-lg-12">
+
+                     
+                            <script>
+            window.onload = function () {
+                document.getElementById("button3").disabled = true;
+            };
+            function enableBtn() {
+                document.getElementById("button3").classList.add('btn-success');
+                document.getElementById("button3").disabled = false;
+
+            }
+                            </script>
+                            <div class="col-md-3 col-sm-12 col-lg-3">
+
+                                <div class="g-recaptcha dag" data-sitekey="6Lckq9kUAAAAAJyabU_QZ2jiBqSwai4ftF6sqqVK" data-callback="enableBtn"></div>
+                                <button style="margin-top:25px;  margin-left: -13px;" id="button3" class="btn btn-dark col-sm-12" type="submit" value="submit">Giriş Yap</button>
+
+
+                            </div>
+                         
+
+                        </div>
+                    </div>
+                </form>
+
+            </div><!--post-project-fields end-->
+
+        </div>
+
+
+    </div><!--post-project end-->
+
+
+    <div class="uye-giris col-md-2">
+        <div class="post-project" style="background-color:transparent; ">
+            <button class="btn btn-warning col-sm-12 " style="color:white;" onclick="location.href='@Url.Action("ForgotPassword", "Home")'"><i class="fa fa-arrow-right"></i>&nbsp;&nbsp;Şifremi Unuttum</button>
+            <div class=" input-icones" style="margin-top:25px;">
+                @using (Html.BeginForm("FacebookLogin", "Home", FormMethod.Post))
+                {
+                <i class="fa fa-facebook-f icone" style="float:left;"></i> <input type="submit" style="padding-left:25px;" value="Facebook ile Kayıt" class="btn btn-primary col-sm-12 " />
+
+                }
+            </div>
+            <div style="visibility:hidden; display:none;">
+
+                @Html.Action("FacebookRegister", "Home")
+            </div>
+            <button style="margin-top:17px;" class="btn btn-success col-sm-12 " onclick="location.href='@Url.Action("Registration", "Home")'"><i class="fa fa-user" style="color:white;"></i> &nbsp;&nbsp;Kayıt Ol</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+function viewPassword()
+{
+  var passwordInput = document.getElementById('sifre');
+  var passStatus = document.getElementById('pass-status');
+
+  if (passwordInput.type == 'password'){
+    passwordInput.type='text';
+    passStatus.className='fa fa-eye-slash';
+
+  }
+  else{
+    passwordInput.type='password';
+    passStatus.className='fa fa-eye';
+  }
+}
+</script>

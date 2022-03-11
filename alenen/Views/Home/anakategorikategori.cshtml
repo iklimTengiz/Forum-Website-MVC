@@ -1,0 +1,102 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Kategori>
+@{
+    ViewBag.Title = "anakategorikategori";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    var user = (alenen.User)ViewBag.user;
+    var anak = (alenen.AnaKategori)ViewBag.anak;
+}
+
+
+
+<section class="companies-info">
+    <div class="container">
+        <div class="company-title">
+            <h3>@ViewBag.anak.anakatad Kategorisine Ait Konular</h3>
+        </div><!--company-title end-->
+
+        <div class="companies-list">
+            <div class="row">
+
+
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="company_profile_info">
+                            <div class="company-up-info">
+
+                                <h4>@item.kategoriad</h4>
+
+                                <h3 class="">@item.olustarih</h3><br />
+                                <h3 class="wrap">@item.aciklama</h3><br />
+                                <img src="~/Content/images/@item.resim" />
+                                <h3></h3>
+                                <style>
+                                    .company-up-info img {
+                                        max-height: 50%;
+                                        max-width: 50%
+                                    }
+                                </style>
+
+                            </div>
+                            <a href="/Kategori/@item.kategoriad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-").Replace(",","-").Replace("'","-").Replace("}","-").Replace("*","-").Replace("_","-").Replace("=","-").Replace("$","-").Replace("#","-").Replace("%","-").Replace("&","-").Replace("[","-").Replace("]","-").Replace(".","-")/@item.kategoriid">Tüm Konuları Gör </a>
+                        </div><!--company_profile_info end-->
+                    </div>
+
+                }
+
+
+
+                <div class="pagination">
+                    @Html.PagedListPager(Model, page => Url.Action("kategorikonulari", new { Page = page }))
+
+                </div>
+
+                <style>
+                    .company-up-info h4 {
+                        padding: 8px 12px;
+                        color: #e99023;
+                        font-size: 18px;
+                        font-weight: 400;
+                        margin-bottom: 10px;
+                    }
+
+                    .company-up-info h3 {
+                        padding: 8px 12px;
+                        color: #727272;
+                        font-size: 16px;
+                        font-weight: 200;
+                        margin-bottom: 10px;
+                    }
+
+                    .wrap {
+                        width: 150px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        margin: auto;
+                        text-overflow: ellipsis;
+                        padding: 8px 12px;
+                        color: #727272;
+                        font-size: 16px;
+                        font-weight: 200;
+                        margin-bottom: 10px;
+                    }
+                </style>
+
+
+
+
+
+
+
+
+            </div>
+        </div><!--companies-list end-->
+
+    </div>
+</section>
+
+
+

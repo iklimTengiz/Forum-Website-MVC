@@ -1,0 +1,59 @@
+﻿@model alenen.Kategori
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<p><i style="color:orangered">" @Model.kategoriad "</i>adlı kategori detayları.</p>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           Kategori Adı:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kategoriad)
+        </dd>
+
+        <dt>
+           Açıklama:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aciklama)
+        </dd>
+
+        <dt>
+          Oluşturulma Tarihi:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.olustarih)
+        </dd>
+
+        <dt>
+           Oluşturan Kişi:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.olusturanid)
+        </dd>
+
+        <dt>
+           Resim:
+        </dt>
+
+        <dd>
+            <img src="~/Content/images/@Model.resim" style="height:50px;width:50px;" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.kategoriid }) |
+    @Html.ActionLink(" Listeye Dön", "Index")
+</p>

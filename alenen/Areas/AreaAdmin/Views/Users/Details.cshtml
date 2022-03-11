@@ -1,0 +1,114 @@
+﻿@model alenen.User
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<p><i style="color:orangered">" @Model.kadi "</i>adlı kullanıcının detayları.</p>
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           Mail:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mail)
+        </dd>
+
+        <dt>
+            Kullanıcı Adı:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kadi)
+        </dd>
+
+        <dt>
+            Aktif Durumda mı?
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aktifmi)
+        </dd>
+
+        <dt>
+           Admin mi?
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adminmi)
+        </dd>
+        <dt>
+           Moderatör mü?
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.moderatormu)
+        </dd>
+
+        <dt>
+           Resim:
+        </dt>
+
+        <dd>
+            <img src="~/Content/images/uploads/kullaniciresim/@Model.resim"style="max-height:60px; max-width:60px;" />
+        </dd>
+
+        <dt>
+           Sözleşmeleri Okutup anladım işaretli mi?
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sozlesme)
+        </dd>
+
+        <dt>
+            Oluşturulma Tarihi:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.olusumtarih)
+        </dd>
+
+        <dt>
+            İsim:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isim)
+        </dd>
+
+        <dt>
+          Soyisim:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soyisim)
+        </dd>
+
+        <dt>
+            Telefon:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefon)
+        </dd>
+
+        <dt>
+           Cinsiyet:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cinsiyet.cinsiyetad)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.userid }) |
+    @Html.ActionLink("Listeye Dön", "Index")
+</p>

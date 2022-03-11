@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    var user = Session["LoginAdminUser"] as alenen.User;
+    var usr = (alenen.User)ViewBag.user;
+    var konu = (alenen.Konular)ViewBag.konu;
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-teal hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">account_circle</i>
+            </div>
+            <div class="content">
+                <!-------KULLANICI SAYISI BU-->
+
+                <div class="text">Kulllanıcı Sayısı</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.count" data-speed="15" data-fresh-interval="20">@ViewBag.count</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="/AreaAdmin/Yorumİslemleri/Onaybekleyenyorum" style="text-decoration:none;">
+            <div class="info-box bg-light-blue hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">forum</i>
+                </div>
+                <div class="content">
+                    <div class="text">Onaylacanak Yorumlar</div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.countyorumonay" data-speed="1000" data-fresh-interval="20">@ViewBag.countyorumonay</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a href="/AreaAdmin/Users/Onaybekleyenkullanici" style="text-decoration:none;">
+            <div class="info-box bg-amber hover-expand-effect">
+                <div class="icon">
+                    <i class="material-icons">folder_shared</i>
+                </div>
+
+                <div class="content">
+                    <div class="text">
+                        Onaylanacak Kullanıcı
+
+                    </div>
+                    <div class="number count-to" data-from="0" data-to="@ViewBag.countuseronay" data-speed="1000" data-fresh-interval="20">@ViewBag.countuseronay</div>
+                </div>
+
+            </div>
+        </a>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box hover-zoom-effect">
+            <div class="icon bg-deep-orange">
+                <i class="material-icons">gps_fixed</i>
+            </div>
+            <div class="content">
+                <div class="text">Konum</div>
+                <div class="number">Türkiye</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+        <div class="header">
+            <h2>
+                Sevgili moderatörler burayı okumadan geçmeyin sizin için gerekli bilgi ve kurallar
+            </h2>
+           
+        </div>
+        <div class="body">
+            <div class="row clearfix">
+                <div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+                    <div class="panel-group" id="accordion_17" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-col-pink">
+                            <div class="panel-heading" role="tab" id="headingOne_17">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion_17" href="#collapseOne_17" aria-expanded="true" aria-controls="collapseOne_17">
+                                        <i class="material-icons">perm_contact_calendar</i> Kurallar
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne_17" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_17">
+                                <div class="panel-body">
+                                <p>Sevgili yöneticilerimiz bu alanda sizlerin yapmaması ve yapması beklenen kurallarımız ve gerekliliklerimiz anlatılmaktadır.</p>
+                                    <p>1) Herhangi bir kişisel sebeple yapılan eylem moderatörlüğünüzü kaybetmenize sebep olur.</p>
+                                    <p>2) Belirlenen kulallar haricinde üye konu ve yorum kebul edilmemesi durumu moderatörlüğünüzün askıya alınmasına sebep olur</p>
+                                    <p>3) Kendi konu ve yorumlarınız için görevinizi kötüye kullanmanız durumunda hem hesabınızı hemde moderatörlüğünüzü kaybedersiniz.</p>
+                                    <p>4) Uygunsuz üye isimleri ve girişlerini kabul ederseniz moderatörlüğünüzü kaybedersiniz.</p>
+                                    <p>5) Ve tabi ki görevi her türlü kötüye kullanım üye hesabınızı ve yöneticiliğinizi elinizden alır:)</p>
+                                    <p>Sevgilerle , bunları aklınızdan çıkarmayın </p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-col-cyan">
+                            <div class="panel-heading" role="tab" id="headingTwo_17">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_17" href="#collapseTwo_17" aria-expanded="false" aria-controls="collapseTwo_17">
+                                        <i class="material-icons">snooze</i> Yapılacak İşler
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo_17" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_17">
+                                <div class="panel-body">
+                              <p>1) Aramıza yeni katılacak üyelerin isim ve bilgilerin uygunluğunun kontrolünün sağlanması</p>
+                                    <p>2) Sorun yaratabilicek yorum ve konu başlıkları elenerek gerekli onay işlemlerinin gerçekleştirilmesi.</p>
+                                    <p> 3) Yorumların konu ve kategorilerinin doğruluğunun kontrol edilmesi değil ise ait oldukları kategoriye alınması.</p>
+                                    <p> 4) Yorumlarda var ise resimlerin uygun olup olmadığının kararın verilmesi.</p>
+                                    <p>5) Yeni ülerimize ve kullanıcılarımıza yardım ederek onların bu platforma alışmasını sağlamakve yardım etmek nitekim sizin kadar adminlerimizn ve bizlerinde görevidir.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-col-teal">
+                            <div class="panel-heading" role="tab" id="headingThree_17">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_17" href="#collapseThree_17" aria-expanded="false" aria-controls="collapseThree_17">
+                                        <i class="material-icons">notification_important</i>Duyuru
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree_17" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree_17">
+                                <div class="panel-body">
+                         <p>Açık ve net herkezin istediği gibi konuşabildiği istediği soruları yönelterek istediği konularda bilgi alabildiği bir platform olmak en büyük hayalimiz , 
+                                    fakat bunu yaparken bizede zarar gelmeyecek şekilde tutmak istiyoruz bu nedenle siz saygıdeğer moderatörlerimize bira iş yükümüz
+                                    var. Müdahale yetkiniz olmayan durumlar için bize herzaman ulaşabilir, bu durumları bize bildirerek sizleri ve bu 
+                                    alanda olan keyfimizi korumamıza yardım ettiğiniz için çok teşekkürler.</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <!-- Answered Tickets -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <div class="body bg-amber">
+                <div class="font-bold m-b--35">Üye Analizi</div>
+                <ul class="dashboard-stat-list">
+                    <li>
+                        Bugün
+                        <span class="pull-right"><b>@ViewBag.uyegun</b> <small>Kayıt</small></span>
+                    </li>
+                    <li>
+                        Bu Hafta
+                        <span class="pull-right"><b>@ViewBag.uyehafta</b> <small>Kayıt</small></span>
+                    </li>
+                    <li>
+                        Bu Ay
+                        <span class="pull-right"><b>@ViewBag.uyeay</b> <small>Kayıt</small></span>
+                    </li>
+                    <li>
+                        Bu Yıl
+                        <span class="pull-right"><b>@ViewBag.uyeyıl</b> <small>Kayıt</small></span>
+                    </li>
+               
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- #END# Answered Tickets -->
+   
+</div>
+
+

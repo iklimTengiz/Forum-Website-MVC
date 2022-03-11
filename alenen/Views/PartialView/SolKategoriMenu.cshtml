@@ -1,0 +1,27 @@
+﻿@model IEnumerable<alenen.Kategori>
+
+
+<div class="suggestions full-width">
+    <div class="sd-title">
+        <h3>Son Eklenen Kategoriler</h3>
+        
+    </div><!--sd-title end-->
+    <div class="suggestions-list">
+        @foreach (var item in Model)
+        {
+            <div class="suggestion-usd">
+                <img src="~/Content/images/icons/@item.resim" alt="">
+                <div class="sgt-text">
+                    <h4>@item.kategoriad</h4>
+                   
+                </div>
+                <span><a href="/Kategori/@item.kategoriad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-")/@item.kategoriid"><i class="la la-eye"></i></a></span>
+            </div>
+
+        }
+        <div class="view-more">
+            <a href="/kategoriler" title="">Daha Fazla</a>
+        </div>
+    </div><!--suggestions-list end-->
+</div><!--suggestions end-->
+

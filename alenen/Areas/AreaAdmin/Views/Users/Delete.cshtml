@@ -1,0 +1,122 @@
+﻿@model alenen.User
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+
+
+<p>"<i>@Model.kadi</i>" isimli kullanıcı başvurusunu kaldırıyorsunuz emin misiniz?</p>
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+           Mail
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mail)
+        </dd>
+
+        <dt>
+           Kullanıcı Adı
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kadi)
+        </dd>
+
+       
+        <dt>
+            Onay Durumu
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.aktifmi)
+        </dd>
+
+        <dt>
+            Admin mi?
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adminmi)
+        </dd>
+
+        <dt>
+         Resim
+        </dt>
+
+        <dd>
+            <img src="~/Content/images/uploads/kullaniciresim/@Model.resim" style="height:auto;width:50px;" />
+        </dd>
+
+        <dt>
+           Sözleşmeyi Okudum Anladım
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sozlesme)
+        </dd>
+
+        <dt>
+           Oluşum Tarihi
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.olusumtarih)
+        </dd>
+
+        <dt>
+            İsim
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isim)
+        </dd>
+
+        <dt>
+            Soyisim
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.soyisim)
+        </dd>
+
+        <dt>
+           Telefon
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefon)
+        </dd>
+
+        <dt>
+            Moderatör mü?
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.moderatormu)
+        </dd>
+
+        <dt>
+            Cinsiyet
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cinsiyet.cinsiyetad)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-default" /> |
+            @Html.ActionLink("Listeye Dön", "Index")
+        </div>
+    }
+</div>

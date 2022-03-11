@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@Page.Title</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/line-awesome.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/line-awesome-font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Contentlib/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/Contentlib/slick/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/responsive.css">
+    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+    <script src="https://www.google.com/recaptcha/api.js?render=_reCAPTCHA_site_key"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    <!--------Sweet ALERTT-->
+
+
+    <script src="~/Content/js/sweetalert.min.js"></script>
+    <!--------Sweet ALERTT-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="container">
+                <div class="header-data">
+                    <div class="logo">
+                        <a href="/" title=""><img src="~/Content/images/alenenlogo.png" alt=""></a>
+                    </div><!--logo end-->
+
+                    <nav>
+                        <ul style="  margin-top: -30px;">
+                            <li>
+                                <a href="/" title="">
+                                    <span><img src="~/Content/images/icon1.png" alt=""></span>
+                                    Anasayfa
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/anakategoriler" title="">
+                                    <span><img src="~/Content/images/icon2.png" alt=""></span>
+                                    Kategoriler
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="/kurallar" title="">
+                                    <span><i class="fa fa-book"></i></span>
+                                    Kurallar
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="/iletisim" title="">
+                                    <span><i class="fa fa-phone"></i></span>
+                                    İletişim
+                                </a>
+
+                            </li>
+                            <li style="padding-bottom: inherit;">
+                                <div class="search-bar ">
+
+                                    @using (Html.BeginForm("KonuArama", "Home", FormMethod.Get))
+                                    {
+                                        <div style="padding-top:10px;">
+
+                                            @Html.TextBox("searching", null, new { id = "searching", @class = "inp_text inp_search", placeholder = "Konu ara ...", name = "q", type = "text" })
+
+                                            <button value="ARA" type="submit"><i class="la la-search"></i></button>
+                                        </div>
+                                    }
+
+
+
+
+                                </div><!--search-bar end-->
+                            </li>
+
+                        </ul>
+                    </nav><!--nav end-->
+                    <div class="menu-btn">
+                        <a href="#" title=""><i class="fa fa-bars"></i></a>
+                    </div> @{
+                        if (Session["LoginUser"] == null)
+                        {
+                            <div class="user-account">
+                                <div class="user-info" style="padding:13px 49px">
+
+                                    <a href="#" title=""><i class="la la-user" style="margin-left:-2px;"></i>Giriş</a>
+                                    <i class="la la-sort-down"></i>
+                                </div>
+                                <div class="user-account-settingss">
+
+                                    <ul class="us-links">
+                                        <li><a href="/uyegiris" title=""><i class="fa fa-sign-in"></i> Giriş Yap </a></li>
+                                        <li><a href="/UyeOl" title=""><i class="fa fa-user"></i> Kayıt Ol</a></li>
+
+                                    </ul>
+
+                                </div><!--user-account-settingss end-->
+                            </div>
+                        }
+                        else
+                        {
+                            var usr = Session["LoginUser"] as alenen.User;
+
+
+                            <!--menu-btn end-->
+                            <div class="user-account">
+                                <div class="user-info">
+                              
+                                
+                                    <a href="/Profilim"> <img src="~/Content/images/uploads/kullaniciresim/@usr.resim" alt=""></a> <!---Buraya url uzantısı eklenicek-->
+                                    <a>@usr.isim @usr.soyisim</a>
+                                    <i class="la la-sort-down"></i>
+                                </div>
+                                <div class="user-account-settingss">
+
+                                    <h3> <a href="/Profilim">Merhaba, @usr.kadi</a> </h3>
+                                    <ul class="us-links">
+                                        <li><a href="/editu" title=""><i class=" fa fa-pencil-square-o"></i> Profili Düzenle</a></li>
+                                        <li><a href="/Yorumlarım" title=""><i class=" fa fa-comment-o"></i> Yorumlar</a></li>
+                                        <li><a href="/Konularım" title=""><i class="fa fa-server"></i> Konular</a></li>
+                                        <li><a href="/Begeniler" title=""><i class="fa fa-star-o"></i> Favoriler</a></li>
+                                    </ul>
+                                    <h3 class="tc"><a href="/LogOut" title="">Çıkış Yap</a></h3>
+                                </div><!--user-account-settingss end-->
+                            </div>
+
+                        }
+
+                    }
+
+
+
+                </div><!--header-data end-->
+            </div>
+        </header><!--header end-->
+        <div class="container">
+
+            <div class="main-section">
+
+
+
+
+
+
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div class="tags-sec full-width">
+        <ul>
+            <li>
+                Alenen.com © 2020 Tüm hakları saklıdır.
+
+            </li> |
+            <li> Developed by <a href="http://nistgrup.com/">Nist Group</a></li>
+        </ul>
+        <div class="cp-sec">
+            <ul>
+                <li><a><i class="fa fa-facebook"></i></a></li>
+                <li><a><i class="fa fa-instagram"></i></a></li>
+                <li><a><i class="fa fa-twitter"></i></a></li>
+            </ul>
+
+        </div>
+    </div><!--tags-sec end-->
+
+
+    <script type="text/javascript" src="~/Content/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/popper.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="~/Content/lib/slick/slick.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/scrollbar.js"></script>
+    <script type="text/javascript" src="~/Content/js/script.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=_reCAPTCHA_site_key"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+    <script src="~/Content/js/jquery.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery-ui.js"></script>
+    <script src="~/Content/js/main.js"></script>
+    <script type="text/javascript" src="~/Content/js/Sepet-begeni.js"></script>
+    <script src="~/js/jquery-1.5.1.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+﻿@model alenen.ViewModels.FaceBookUser
+@{
+    ViewBag.Title = "FacebookRegister";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+
+
+
+<div class="space"></div>
+
+<div style="visibility:hidden; display:none;">
+    @using (Html.BeginForm("FacebookLogin", "Home", FormMethod.Post))
+    {
+        <input type="submit" value="Facebook ile Kayıt" class="btn btn-primary" />
+
+    }
+</div>
+
+<div class="post-project ">
+    <h4 class="facebas"><i class="fa fa-facebook-f" style="color:#2f82d1"></i> Facebook İle Kayıt Ol</h4>
+    <hr />
+    <p style="text-align:center;">Giriş yaparken kullanacağınız şifre ve kullanıcı adını belirleyerek kayıt işleminizi tamamlayabilirsiniz.</p>
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+    <div class="post-project-fields post-project-fields2 ">
+
+        @using (Html.BeginForm("FacebookRegister", "Home", FormMethod.Post))
+        {
+
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal center-block well">
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <p class="col-md-2">İsim</p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required", @readOnly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p class="col-md-2">Mail</p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", required = "required", @readOnly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p class="col-md-2">Kullanıcı Adı</p>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.kadi, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.ValidationMessageFor(model => model.kadi, "", new { @class = "text-danger" })
+                    @if (ViewBag.Errorb != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.Errorb
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p class="col-md-2">Şifre</p>
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="validationTooltipUsernamePrepend">  <i id="pass-status" class="fa fa-eye" aria-hidden="true" onClick="viewPassword()"></i></span>
+                        </div>
+
+                        @Html.EditorFor(model => model.sifre, new { htmlAttributes = new { @class = "form-control", required = "required", id = "password-field", type = "password", name = "password" } })
+                        @Html.ValidationMessageFor(model => model.sifre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="col-md-6">
+                    Sözleşmeleri okudum ve anladım.
+                </p>
+                <div class="col-md-12">
+                    <div>
+
+                        <p>Kişisel verileriniz, <a href="/aydinlatmametni">Aydınlatma Metni</a> kapsamında işlenmektedir. Kayıt Ol butonuna basarak <a href="/uyeliksozlesme">Üyelik Sözleşmesi’ni</a>, <a href="/rizametni">Rıza Metni’ni</a>, <a href="/cerezpolitikasi">Gizlilik ve Çerez Politikası’nı</a> okuduğunuzu ve kabul ettiğinizi onaylıyorsunuz.</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-6" style="margin:auto;">
+                    <input type="submit" value="Kayıt Ol" class="btn btn-primary" style="color:white;" />
+                </div>
+            </div>
+        </div>
+
+
+    }
+    </div>
+    </div>
+
+
+    <script>
+function viewPassword()
+{
+  var passwordInput = document.getElementById('password-field');
+  var passStatus = document.getElementById('pass-status');
+
+  if (passwordInput.type == 'password'){
+    passwordInput.type='text';
+    passStatus.className='fa fa-eye-slash';
+
+  }
+  else{
+    passwordInput.type='password';
+    passStatus.className='fa fa-eye';
+  }
+}
+    </script>
+
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert('@ViewBag.Message');
+            }
+        </script>
+    }
+
+

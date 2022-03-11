@@ -1,0 +1,52 @@
+﻿@model alenen.AnaKategori
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<p><i style="color:orangered">" @Model.anakatad "</i>adlı ana kategoriyi düzenliyorsunuz.</p>
+
+
+@using (Html.BeginForm("Edit", "AnaKategori", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>AnaKategori</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.anakatid)
+
+    <div class="form-group">
+        <p class="col-md-2">
+            Ana Kategori Adı:
+        </p>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.anakatad, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.anakatad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <p class="col-md-2">Resim:</p>
+        <div class="col-md-4">
+            <input type="file" name="imagee" class="form-control" onchange="readURL(this);">
+            @Html.ValidationMessageFor(model => model.resim, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Kaydet" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Listeye Dön", "Index")
+</div>
+
+

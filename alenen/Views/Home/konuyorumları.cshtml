@@ -1,0 +1,147 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Yorum>
+@{
+    ViewBag.Title = "konuyorumları";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+
+    var isLogin = (bool)ViewBag.IsLogin;
+    var kategori = (alenen.Kategori)ViewBag.kategori;
+    var konular = (alenen.Konular)ViewBag.konular;
+}
+
+<div class="space"></div>
+
+
+<div class="row">
+    <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+        <div class="main-left-sidebar no-margin">
+
+            @Html.Action("SolKategoriMenu", "PartialView")
+            @Html.Action("SolKonuMenusu", "PartialView")
+            <!-----------SOL KONU PARTİAL VİEEVVVV-->
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="col-lg-9 col-md-8 pd-left-none no-pd">
+
+        <div class="main-ws-sec">
+            <div class="post-topbar">
+                <div class="user-picy">
+
+                    <h2 style="font-size:20px; font-weight:bolder;">@konular.konuad</h2>
+                    <hr />
+                    <img src="~/Content/images/uploads/kullaniciresim/@konular.User.resim" style="height:50px;width:50px; margin-right:10px;" />
+                    <h3 style="font-size:25px">@konular.User.kadi</h3>
+                    <h4>@konular.yorum</h4>
+
+
+                    <h3></h3>
+
+                </div>
+
+            </div><!--post-topbar end-->
+
+            @foreach (var item in Model)
+            {
+                if (item.onay == true)
+                {
+                    <div class="posts-section">
+                        <div class="post-bar">
+
+                            <div class="post_topbar">
+                                <div class="usy-dt">
+
+                                    @if (item.User != null )
+                                    {
+
+                                        <img src="~/Content/images/uploads/kullaniciresim/@item.User.resim" alt="">
+                                        <div class="usy-name">
+                                            <h3>@item.User.kadi</h3>
+                                            <span><img src="~/Content/images/clock.png" alt="" /> @item.olustarih</span>
+                                            <h1></h1>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        
+                                        <div class="usy-name">
+                                            <h3>Kullanıcı Artık Mevcut Değil</h3>
+                                            <span><img src="~/Content/images/clock.png" alt="" /> @item.olustarih</span>
+                                            <h1></h1>
+                                        </div>
+                                    }
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="job_descp">
+
+                                <p>@item.icerik</p>
+                                @{
+                                    if (item.resim != null)
+                                    {
+                                        <img src="/Content/images/uploads/yorumres/@item.resim" style="height:auto; width:150px; float:left;" />
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+
+                            </div>
+
+                            <div class="job-status-bar">
+                                <ul class="like-com">
+                                    @{
+
+                                        if (ViewBag.isLogin)
+
+                                        {
+
+                                            <li>
+                                                <a href="#" data-pid="@item.yorumid" class="btn btn-default begeniekle" onclick="begeni()"><i class="fa fa-heart"></i> Beğen</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="#" class="btn btn-default"><i class="fa fa-heart "></i></a>
+                                            </li>
+                                        }
+                                    }
+
+                                </ul>
+
+                            </div>
+                        </div><!--post-bar end-->
+
+
+
+                    </div><!--posts-section end-->
+                }
+                else
+                {
+
+                }
+
+            }
+
+        </div>
+        @Html.Action("Yorumyap", "PartialView")
+    </div>
+</div>
+
+<div class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("konuyorumları", new { Page = page }))
+
+</div>
+

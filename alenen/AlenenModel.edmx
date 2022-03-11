@@ -1,0 +1,718 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AlenenDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnaKategori">
+          <Key>
+            <PropertyRef Name="anakatid" />
+          </Key>
+          <Property Name="anakatid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="anakatad" Type="nvarchar" MaxLength="50" />
+          <Property Name="resim" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Begeni">
+          <Key>
+            <PropertyRef Name="begeniid" />
+          </Key>
+          <Property Name="begeniid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="yorumid" Type="int" />
+        </EntityType>
+        <EntityType Name="Cinsiyet">
+          <Key>
+            <PropertyRef Name="cinsiyetid" />
+          </Key>
+          <Property Name="cinsiyetid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cinsiyetad" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="kategoriid" />
+          </Key>
+          <Property Name="kategoriid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategoriad" Type="nvarchar" MaxLength="50" />
+          <Property Name="aciklama" Type="nvarchar(max)" />
+          <Property Name="olustarih" Type="datetime" />
+          <Property Name="olusturanid" Type="int" />
+          <Property Name="resim" Type="nvarchar(max)" />
+          <Property Name="anakatid" Type="int" />
+        </EntityType>
+        <EntityType Name="Konular">
+          <Key>
+            <PropertyRef Name="konuid" />
+          </Key>
+          <Property Name="konuid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="yorum" Type="nvarchar" MaxLength="250" />
+          <Property Name="konuad" Type="nvarchar" MaxLength="150" />
+          <Property Name="kategoriid" Type="int" />
+          <Property Name="resim" Type="nvarchar(max)" />
+          <Property Name="olustarih" Type="datetime" />
+          <Property Name="olusturanid" Type="int" />
+        </EntityType>
+        <EntityType Name="UserActivation">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mail" Type="nvarchar" MaxLength="100" />
+          <Property Name="kadi" Type="nvarchar" MaxLength="25" />
+          <Property Name="sifre" Type="nvarchar" MaxLength="25" />
+          <Property Name="aktifmi" Type="bit" />
+          <Property Name="adminmi" Type="bit" />
+          <Property Name="resim" Type="nvarchar(max)" />
+          <Property Name="sozlesme" Type="bit" />
+          <Property Name="olusumtarih" Type="datetime" />
+          <Property Name="isim" Type="nvarchar" MaxLength="60" />
+          <Property Name="soyisim" Type="nvarchar" MaxLength="60" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="11" />
+          <Property Name="cinsiyetid" Type="int" />
+          <Property Name="moderatormu" Type="bit" />
+          <Property Name="ResetPasswordCode" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Yorum">
+          <Key>
+            <PropertyRef Name="yorumid" />
+          </Key>
+          <Property Name="yorumid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="icerik" Type="nvarchar" MaxLength="250" />
+          <Property Name="onay" Type="bit" />
+          <Property Name="resim" Type="nvarchar(max)" />
+          <Property Name="userid" Type="int" />
+          <Property Name="konuid" Type="int" />
+          <Property Name="olustarih" Type="datetime" />
+          <Property Name="video" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Begeni_user">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Begeni" Type="Self.Begeni" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Begeni">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kategori_AnaKategori">
+          <End Role="AnaKategori" Type="Self.AnaKategori" Multiplicity="0..1" />
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnaKategori">
+              <PropertyRef Name="anakatid" />
+            </Principal>
+            <Dependent Role="Kategori">
+              <PropertyRef Name="anakatid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_konuid_kategoriid">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="0..1" />
+          <End Role="Konular" Type="Self.Konular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="kategoriid" />
+            </Principal>
+            <Dependent Role="Konular">
+              <PropertyRef Name="kategoriid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Konular_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Konular" Type="Self.Konular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Konular">
+              <PropertyRef Name="olusturanid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Cinsiyet">
+          <End Role="Cinsiyet" Type="Self.Cinsiyet" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cinsiyet">
+              <PropertyRef Name="cinsiyetid" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="cinsiyetid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yorum_Begeni">
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="0..1" />
+          <End Role="Begeni" Type="Self.Begeni" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yorum">
+              <PropertyRef Name="yorumid" />
+            </Principal>
+            <Dependent Role="Begeni">
+              <PropertyRef Name="yorumid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yorumid_konuid">
+          <End Role="Konular" Type="Self.Konular" Multiplicity="0..1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Konular">
+              <PropertyRef Name="konuid" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="konuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yorumid_userid">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="alenenco">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Insert_Usera" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="kadi" Type="nvarchar" Mode="In" />
+          <Parameter Name="sifre" Type="nvarchar" Mode="In" />
+          <Parameter Name="mail" Type="nvarchar" Mode="In" />
+          <Parameter Name="olusumtarih" Type="datetime" Mode="In" />
+          <Parameter Name="aktifmi" Type="bit" Mode="In" />
+          <Parameter Name="adminmi" Type="bit" Mode="In" />
+          <Parameter Name="resim" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sozlesme" Type="bit" Mode="In" />
+          <Parameter Name="isim" Type="nvarchar" Mode="In" />
+          <Parameter Name="soyisim" Type="nvarchar" Mode="In" />
+          <Parameter Name="telefon" Type="nvarchar" Mode="In" />
+          <Parameter Name="cinsiyetid" Type="int" Mode="In" />
+          <Parameter Name="moderatormu" Type="bit" Mode="In" />
+          <Parameter Name="ResetPasswordCode" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="kadi" Type="nvarchar" Mode="In" />
+          <Parameter Name="sifre" Type="nvarchar" Mode="In" />
+          <Parameter Name="mail" Type="nvarchar" Mode="In" />
+          <Parameter Name="olusumtarih" Type="datetime" Mode="In" />
+          <Parameter Name="aktifmi" Type="bit" Mode="In" />
+          <Parameter Name="adminmi" Type="bit" Mode="In" />
+          <Parameter Name="resim" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sozlesme" Type="bit" Mode="In" />
+          <Parameter Name="isim" Type="nvarchar" Mode="In" />
+          <Parameter Name="soyisim" Type="nvarchar" Mode="In" />
+          <Parameter Name="telefon" Type="nvarchar" Mode="In" />
+          <Parameter Name="cinsiyetid" Type="int" Mode="In" />
+          <Parameter Name="moderatormu" Type="bit" Mode="In" />
+          <Parameter Name="ResetPasswordCode" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="AlenenDBModelStoreContainer">
+          <EntitySet Name="AnaKategori" EntityType="Self.AnaKategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Begeni" EntityType="Self.Begeni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cinsiyet" EntityType="Self.Cinsiyet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Konular" EntityType="Self.Konular" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserActivation" EntityType="Self.UserActivation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yorum" EntityType="Self.Yorum" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Begeni_user" Association="Self.FK_Begeni_user">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Begeni" EntitySet="Begeni" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kategori_AnaKategori" Association="Self.FK_Kategori_AnaKategori">
+            <End Role="AnaKategori" EntitySet="AnaKategori" />
+            <End Role="Kategori" EntitySet="Kategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_konuid_kategoriid" Association="Self.FK_konuid_kategoriid">
+            <End Role="Kategori" EntitySet="Kategori" />
+            <End Role="Konular" EntitySet="Konular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Konular_Users" Association="Self.FK_Konular_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Konular" EntitySet="Konular" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Cinsiyet" Association="Self.FK_Users_Cinsiyet">
+            <End Role="Cinsiyet" EntitySet="Cinsiyet" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yorum_Begeni" Association="Self.FK_yorum_Begeni">
+            <End Role="Yorum" EntitySet="Yorum" />
+            <End Role="Begeni" EntitySet="Begeni" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yorumid_konuid" Association="Self.FK_yorumid_konuid">
+            <End Role="Konular" EntitySet="Konular" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yorumid_userid" Association="Self.FK_yorumid_userid">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AlenenDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AnaKategori">
+          <Key>
+            <PropertyRef Name="anakatid" />
+          </Key>
+          <Property Name="anakatid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="anakatad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="resim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kategoris" Relationship="Self.FK_Kategori_AnaKategori" FromRole="AnaKategori" ToRole="Kategori" />
+        </EntityType>
+        <EntityType Name="Begeni">
+          <Key>
+            <PropertyRef Name="begeniid" />
+          </Key>
+          <Property Name="begeniid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="yorumid" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Begeni_user" FromRole="Begeni" ToRole="Users" />
+          <NavigationProperty Name="Yorum" Relationship="Self.FK_yorum_Begeni" FromRole="Begeni" ToRole="Yorum" />
+        </EntityType>
+        <EntityType Name="Cinsiyet">
+          <Key>
+            <PropertyRef Name="cinsiyetid" />
+          </Key>
+          <Property Name="cinsiyetid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cinsiyetad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Cinsiyet" FromRole="Cinsiyet" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="kategoriid" />
+          </Key>
+          <Property Name="kategoriid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="aciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="olustarih" Type="DateTime" Precision="3" />
+          <Property Name="olusturanid" Type="Int32" />
+          <Property Name="resim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="anakatid" Type="Int32" />
+          <NavigationProperty Name="AnaKategori" Relationship="Self.FK_Kategori_AnaKategori" FromRole="Kategori" ToRole="AnaKategori" />
+          <NavigationProperty Name="Konulars" Relationship="Self.FK_konuid_kategoriid" FromRole="Kategori" ToRole="Konular" />
+        </EntityType>
+        <EntityType Name="Konular">
+          <Key>
+            <PropertyRef Name="konuid" />
+          </Key>
+          <Property Name="konuid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="yorum" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="konuad" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="kategoriid" Type="Int32" />
+          <Property Name="resim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="olustarih" Type="DateTime" Precision="3" />
+          <Property Name="olusturanid" Type="Int32" />
+          <NavigationProperty Name="Kategori" Relationship="Self.FK_konuid_kategoriid" FromRole="Konular" ToRole="Kategori" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Konular_Users" FromRole="Konular" ToRole="Users" />
+          <NavigationProperty Name="Yorums" Relationship="Self.FK_yorumid_konuid" FromRole="Konular" ToRole="Yorum" />
+        </EntityType>
+        <EntityType Name="UserActivation">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="ActivationCode" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="kadi" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="sifre" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="aktifmi" Type="Boolean" />
+          <Property Name="adminmi" Type="Boolean" />
+          <Property Name="resim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="sozlesme" Type="Boolean" />
+          <Property Name="olusumtarih" Type="DateTime" Precision="3" />
+          <Property Name="isim" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="soyisim" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="telefon" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="cinsiyetid" Type="Int32" />
+          <Property Name="moderatormu" Type="Boolean" />
+          <Property Name="ResetPasswordCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Begenis" Relationship="Self.FK_Begeni_user" FromRole="Users" ToRole="Begeni" />
+          <NavigationProperty Name="Cinsiyet" Relationship="Self.FK_Users_Cinsiyet" FromRole="Users" ToRole="Cinsiyet" />
+          <NavigationProperty Name="Konulars" Relationship="Self.FK_Konular_Users" FromRole="Users" ToRole="Konular" />
+          <NavigationProperty Name="Yorums" Relationship="Self.FK_yorumid_userid" FromRole="Users" ToRole="Yorum" />
+        </EntityType>
+        <EntityType Name="Yorum">
+          <Key>
+            <PropertyRef Name="yorumid" />
+          </Key>
+          <Property Name="yorumid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="icerik" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="onay" Type="Boolean" />
+          <Property Name="resim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="konuid" Type="Int32" />
+          <Property Name="olustarih" Type="DateTime" Precision="3" />
+          <Property Name="video" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Begenis" Relationship="Self.FK_yorum_Begeni" FromRole="Yorum" ToRole="Begeni" />
+          <NavigationProperty Name="Konular" Relationship="Self.FK_yorumid_konuid" FromRole="Yorum" ToRole="Konular" />
+          <NavigationProperty Name="User" Relationship="Self.FK_yorumid_userid" FromRole="Yorum" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Kategori_AnaKategori">
+          <End Role="AnaKategori" Type="Self.AnaKategori" Multiplicity="0..1" />
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnaKategori">
+              <PropertyRef Name="anakatid" />
+            </Principal>
+            <Dependent Role="Kategori">
+              <PropertyRef Name="anakatid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Begeni_user">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Begeni" Type="Self.Begeni" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Begeni">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yorum_Begeni">
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="0..1" />
+          <End Role="Begeni" Type="Self.Begeni" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yorum">
+              <PropertyRef Name="yorumid" />
+            </Principal>
+            <Dependent Role="Begeni">
+              <PropertyRef Name="yorumid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Cinsiyet">
+          <End Role="Cinsiyet" Type="Self.Cinsiyet" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cinsiyet">
+              <PropertyRef Name="cinsiyetid" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="cinsiyetid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_konuid_kategoriid">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="0..1" />
+          <End Role="Konular" Type="Self.Konular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="kategoriid" />
+            </Principal>
+            <Dependent Role="Konular">
+              <PropertyRef Name="kategoriid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Konular_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Konular" Type="Self.Konular" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Konular">
+              <PropertyRef Name="olusturanid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yorumid_konuid">
+          <End Role="Konular" Type="Self.Konular" Multiplicity="0..1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Konular">
+              <PropertyRef Name="konuid" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="konuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_yorumid_userid">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="Yorum">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="alenenDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AnaKategoris" EntityType="Self.AnaKategori" />
+          <EntitySet Name="Begenis" EntityType="Self.Begeni" />
+          <EntitySet Name="Cinsiyets" EntityType="Self.Cinsiyet" />
+          <EntitySet Name="Kategoris" EntityType="Self.Kategori" />
+          <EntitySet Name="Konulars" EntityType="Self.Konular" />
+          <EntitySet Name="UserActivations" EntityType="Self.UserActivation" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Yorums" EntityType="Self.Yorum" />
+          <AssociationSet Name="FK_Kategori_AnaKategori" Association="Self.FK_Kategori_AnaKategori">
+            <End Role="AnaKategori" EntitySet="AnaKategoris" />
+            <End Role="Kategori" EntitySet="Kategoris" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Begeni_user" Association="Self.FK_Begeni_user">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Begeni" EntitySet="Begenis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yorum_Begeni" Association="Self.FK_yorum_Begeni">
+            <End Role="Yorum" EntitySet="Yorums" />
+            <End Role="Begeni" EntitySet="Begenis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Cinsiyet" Association="Self.FK_Users_Cinsiyet">
+            <End Role="Cinsiyet" EntitySet="Cinsiyets" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_konuid_kategoriid" Association="Self.FK_konuid_kategoriid">
+            <End Role="Kategori" EntitySet="Kategoris" />
+            <End Role="Konular" EntitySet="Konulars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Konular_Users" Association="Self.FK_Konular_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Konular" EntitySet="Konulars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yorumid_konuid" Association="Self.FK_yorumid_konuid">
+            <End Role="Konular" EntitySet="Konulars" />
+            <End Role="Yorum" EntitySet="Yorums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_yorumid_userid" Association="Self.FK_yorumid_userid">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Yorum" EntitySet="Yorums" />
+          </AssociationSet>
+          <FunctionImport Name="DeleteUser" ReturnType="Collection(Int32)">
+          <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Insert_Usera" ReturnType="Collection(Int32)">
+            <Parameter Name="kadi" Mode="In" Type="String" />
+            <Parameter Name="sifre" Mode="In" Type="String" />
+            <Parameter Name="mail" Mode="In" Type="String" />
+            <Parameter Name="olusumtarih" Mode="In" Type="DateTime" />
+            <Parameter Name="aktifmi" Mode="In" Type="Boolean" />
+            <Parameter Name="adminmi" Mode="In" Type="Boolean" />
+            <Parameter Name="resim" Mode="In" Type="String" />
+            <Parameter Name="sozlesme" Mode="In" Type="Boolean" />
+            <Parameter Name="isim" Mode="In" Type="String" />
+            <Parameter Name="soyisim" Mode="In" Type="String" />
+            <Parameter Name="telefon" Mode="In" Type="String" />
+            <Parameter Name="cinsiyetid" Mode="In" Type="Int32" />
+            <Parameter Name="moderatormu" Mode="In" Type="Boolean" />
+            <Parameter Name="ResetPasswordCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUser">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="kadi" Mode="In" Type="String" />
+            <Parameter Name="sifre" Mode="In" Type="String" />
+            <Parameter Name="mail" Mode="In" Type="String" />
+            <Parameter Name="olusumtarih" Mode="In" Type="DateTime" />
+            <Parameter Name="aktifmi" Mode="In" Type="Boolean" />
+            <Parameter Name="adminmi" Mode="In" Type="Boolean" />
+            <Parameter Name="resim" Mode="In" Type="String" />
+            <Parameter Name="sozlesme" Mode="In" Type="Boolean" />
+            <Parameter Name="isim" Mode="In" Type="String" />
+            <Parameter Name="soyisim" Mode="In" Type="String" />
+            <Parameter Name="telefon" Mode="In" Type="String" />
+            <Parameter Name="cinsiyetid" Mode="In" Type="Int32" />
+            <Parameter Name="moderatormu" Mode="In" Type="Boolean" />
+            <Parameter Name="ResetPasswordCode" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AlenenDBModelStoreContainer" CdmEntityContainer="alenenDBEntities">
+          <EntitySetMapping Name="AnaKategoris">
+            <EntityTypeMapping TypeName="AlenenDBModel.AnaKategori">
+              <MappingFragment StoreEntitySet="AnaKategori">
+                <ScalarProperty Name="anakatid" ColumnName="anakatid" />
+                <ScalarProperty Name="anakatad" ColumnName="anakatad" />
+                <ScalarProperty Name="resim" ColumnName="resim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Begenis">
+            <EntityTypeMapping TypeName="AlenenDBModel.Begeni">
+              <MappingFragment StoreEntitySet="Begeni">
+                <ScalarProperty Name="begeniid" ColumnName="begeniid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="yorumid" ColumnName="yorumid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cinsiyets">
+            <EntityTypeMapping TypeName="AlenenDBModel.Cinsiyet">
+              <MappingFragment StoreEntitySet="Cinsiyet">
+                <ScalarProperty Name="cinsiyetid" ColumnName="cinsiyetid" />
+                <ScalarProperty Name="cinsiyetad" ColumnName="cinsiyetad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategoris">
+            <EntityTypeMapping TypeName="AlenenDBModel.Kategori">
+              <MappingFragment StoreEntitySet="Kategori">
+                <ScalarProperty Name="kategoriid" ColumnName="kategoriid" />
+                <ScalarProperty Name="kategoriad" ColumnName="kategoriad" />
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+                <ScalarProperty Name="olustarih" ColumnName="olustarih" />
+                <ScalarProperty Name="olusturanid" ColumnName="olusturanid" />
+                <ScalarProperty Name="resim" ColumnName="resim" />
+                <ScalarProperty Name="anakatid" ColumnName="anakatid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Konulars">
+            <EntityTypeMapping TypeName="AlenenDBModel.Konular">
+              <MappingFragment StoreEntitySet="Konular">
+                <ScalarProperty Name="konuid" ColumnName="konuid" />
+                <ScalarProperty Name="yorum" ColumnName="yorum" />
+                <ScalarProperty Name="konuad" ColumnName="konuad" />
+                <ScalarProperty Name="kategoriid" ColumnName="kategoriid" />
+                <ScalarProperty Name="resim" ColumnName="resim" />
+                <ScalarProperty Name="olustarih" ColumnName="olustarih" />
+                <ScalarProperty Name="olusturanid" ColumnName="olusturanid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserActivations">
+            <EntityTypeMapping TypeName="AlenenDBModel.UserActivation">
+              <MappingFragment StoreEntitySet="UserActivation">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AlenenDBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="kadi" ColumnName="kadi" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="aktifmi" ColumnName="aktifmi" />
+                <ScalarProperty Name="adminmi" ColumnName="adminmi" />
+                <ScalarProperty Name="resim" ColumnName="resim" />
+                <ScalarProperty Name="sozlesme" ColumnName="sozlesme" />
+                <ScalarProperty Name="olusumtarih" ColumnName="olusumtarih" />
+                <ScalarProperty Name="isim" ColumnName="isim" />
+                <ScalarProperty Name="soyisim" ColumnName="soyisim" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="cinsiyetid" ColumnName="cinsiyetid" />
+                <ScalarProperty Name="moderatormu" ColumnName="moderatormu" />
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="AlenenDBModel.User">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="AlenenDBModel.Store.DeleteUser">
+                  <ScalarProperty Name="userid" ParameterName="userid" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="AlenenDBModel.Store.UpdateUser">
+                  <ScalarProperty Name="ResetPasswordCode" ParameterName="ResetPasswordCode" Version="Current" />
+                  <ScalarProperty Name="moderatormu" ParameterName="moderatormu" Version="Current" />
+                  <ScalarProperty Name="cinsiyetid" ParameterName="cinsiyetid" Version="Current" />
+                  <ScalarProperty Name="telefon" ParameterName="telefon" Version="Current" />
+                  <ScalarProperty Name="soyisim" ParameterName="soyisim" Version="Current" />
+                  <ScalarProperty Name="isim" ParameterName="isim" Version="Current" />
+                  <ScalarProperty Name="sozlesme" ParameterName="sozlesme" Version="Current" />
+                  <ScalarProperty Name="resim" ParameterName="resim" Version="Current" />
+                  <ScalarProperty Name="adminmi" ParameterName="adminmi" Version="Current" />
+                  <ScalarProperty Name="aktifmi" ParameterName="aktifmi" Version="Current" />
+                  <ScalarProperty Name="olusumtarih" ParameterName="olusumtarih" Version="Current" />
+                  <ScalarProperty Name="mail" ParameterName="mail" Version="Current" />
+                  <ScalarProperty Name="sifre" ParameterName="sifre" Version="Current" />
+                  <ScalarProperty Name="kadi" ParameterName="kadi" Version="Current" />
+                  <ScalarProperty Name="userid" ParameterName="userid" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="AlenenDBModel.Store.Insert_Usera">
+                  <ScalarProperty Name="ResetPasswordCode" ParameterName="ResetPasswordCode" />
+                  <ScalarProperty Name="moderatormu" ParameterName="moderatormu" />
+                  <ScalarProperty Name="cinsiyetid" ParameterName="cinsiyetid" />
+                  <ScalarProperty Name="telefon" ParameterName="telefon" />
+                  <ScalarProperty Name="soyisim" ParameterName="soyisim" />
+                  <ScalarProperty Name="isim" ParameterName="isim" />
+                  <ScalarProperty Name="sozlesme" ParameterName="sozlesme" />
+                  <ScalarProperty Name="resim" ParameterName="resim" />
+                  <ScalarProperty Name="adminmi" ParameterName="adminmi" />
+                  <ScalarProperty Name="aktifmi" ParameterName="aktifmi" />
+                  <ScalarProperty Name="olusumtarih" ParameterName="olusumtarih" />
+                  <ScalarProperty Name="mail" ParameterName="mail" />
+                  <ScalarProperty Name="sifre" ParameterName="sifre" />
+                  <ScalarProperty Name="kadi" ParameterName="kadi" />
+                  <ResultBinding Name="userid" ColumnName="userid" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yorums">
+            <EntityTypeMapping TypeName="AlenenDBModel.Yorum">
+              <MappingFragment StoreEntitySet="Yorum">
+                <ScalarProperty Name="yorumid" ColumnName="yorumid" />
+                <ScalarProperty Name="icerik" ColumnName="icerik" />
+                <ScalarProperty Name="onay" ColumnName="onay" />
+                <ScalarProperty Name="resim" ColumnName="resim" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="konuid" ColumnName="konuid" />
+                <ScalarProperty Name="olustarih" ColumnName="olustarih" />
+                <ScalarProperty Name="video" ColumnName="video" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteUser" FunctionName="AlenenDBModel.Store.DeleteUser" />
+          <FunctionImportMapping FunctionImportName="Insert_Usera" FunctionName="AlenenDBModel.Store.Insert_Usera" />
+          <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="AlenenDBModel.Store.UpdateUser" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

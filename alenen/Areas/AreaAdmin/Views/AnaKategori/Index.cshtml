@@ -1,0 +1,42 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<AnaKategori>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Yeni Ekle", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Ana KAtegori Adı
+        </th>
+        <th>
+            Resim
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.anakatad)
+            </td>
+            <td>
+                <img src="~/Content/images/@item.resim" style="width:50px; height:auto;"/>
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit", new { id = item.anakatid }) |
+                @Html.ActionLink("Detaylar", "Details", new { id = item.anakatid })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { Page = page }))

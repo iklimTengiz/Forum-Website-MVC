@@ -1,0 +1,71 @@
+﻿@model alenen.Yorum
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<p><i style="color:orangered">"@Model.Konular.konuad"</i>konusuna ait <i style="color:orangered">"@Model.icerik"</i> yorumunu düzenliyorsunuz. </p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.yorumid)
+    @Html.HiddenFor(model => model.resim)
+    @Html.HiddenFor(model => model.userid)
+    @Html.HiddenFor(model => model.icerik)
+    @Html.HiddenFor(model => model.olustarih)
+    @Html.HiddenFor(model => model.video)
+    @Html.HiddenFor(model => model.resim)<!---Bu zıkkım updatete alanı null yapmadan yazmanı sağlıyor-->
+    <div class="form-group">
+        <p class="col-md-2">İçerik</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.icerik, new { htmlAttributes = new { @class = "form-control",@Readonly = "ReadOnly" } })
+            @Html.ValidationMessageFor(model => model.icerik, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="col-md-2">Onay Durumu</p>
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.onay)
+                @Html.ValidationMessageFor(model => model.onay, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <p class="col-md-2">Konu</p>
+        <div class="col-md-10">
+            @Html.DropDownList("konuid", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.konuid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="col-md-2">Oluşturulma Tarihi</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.olustarih, new { htmlAttributes = new { @class = "form-control", @Readonly = "ReadOnly" } })
+            @Html.ValidationMessageFor(model => model.olustarih, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Kaydet" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Listeye Dön", "Index")
+</div>

@@ -1,0 +1,76 @@
+﻿@model List<alenen.Yorum>
+
+@{
+    var isLogin = (bool)ViewBag.IsLogin;
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+
+
+<main>
+    <div class="main-section">
+        <div class="container">
+            <div class="main-section-data">
+                @{
+                    {
+                        var usr = Session["LoginUser"] as alenen.User;
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+
+
+                                <div class="main-left-sidebar no-margin">
+                                    <div class="user-data full-width">
+                                        <div class="user-profile">
+                                            <div class="username-dt">
+                                                <div class="usr-pic">
+                                                    <img src=" ~/Content/images/uploads/kullaniciresim/@usr.resim" alt="">
+                                                </div>
+                                            </div><!--username-dt end-->
+                                            <div class="user-specs">
+                                                <h3>@usr.kadi</h3>
+                                                <span>@usr.isim @usr.soyisim</span>
+                                            </div>
+                                        </div><!--user-profile end-->
+                                        <ul class="us-links">
+                                            <li><a href="/editu" title=""><i class=" fa fa-pencil-square-o"></i> Profili Düzenle</a></li>
+                                            <li><a href="/Yorumlarım" title=""><i class=" fa fa-comment-o"></i> Yorumlar</a></li>
+                                            <li><a href="/Konularım" title=""><i class="fa fa-server"></i> Konular</a></li>
+                                            <li><a href="/Begeniler" title=""><i class="fa fa-star-o"></i> Favoriler</a></li>
+                                        </ul>
+                                    </div><!--user-data end-->
+                                    @Html.Action("SolKonuMenusu", "PartialView")
+                                    @Html.Action("SolKategoriMenu", "PartialView")
+
+                                </div><!--main-left-sidebar end-->
+
+
+                            </div>
+
+                            <div class="main-ws-sec col-lg-9 col-md-8 pd-left-none no-pd">
+
+
+                                <div class="main-ws-sec">
+
+                                    @Html.Action("Profilyorumlar", "PartialView")
+                                    @Html.Action("ProfilKonular", "PartialView")
+                                </div>
+                            </div>
+
+                        </div><!-- main-section-data end-->
+
+
+
+
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+
+
+

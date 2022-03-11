@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "iletisim";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    string msj = "";
+    if (TempData["mesaj"] != null)
+    {
+        msj = TempData["mesaj"].ToString();
+    }
+}
+
+<div class="space"></div>
+
+<div class="row">
+    <div class=" cent col-md-12 ">
+        <div class="right-sidebar">
+            <div class="widget widget-about">
+                <img src="images/wd-logo.png" alt="">
+                <h3>Telefon:</h3>
+                <span><a href="tel:+902124418189" class="cont">0212 441 81 89</a></span>
+                <div class="sign_link">
+                    <h3>E-Mail:</h3>
+                    <span><a href="mailto:info@alenen.com" class="cont">info@alenen.com</a> </span>
+                </div>
+            </div><!--widget-about end-->
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .cont {
+        text-decoration: none;
+        font-size: 18px;
+        color: #000000;
+    }
+
+        .cont:hover {
+            text-decoration: none;
+            font-size: 20px;
+            color: #e99023;
+        }
+
+    .cent {
+        max-width: 50%;
+        text-align: center;
+        margin: auto;
+    }
+</style>
+
+
+
+<div class="space"></div>
+@using (Html.BeginForm("iletisim", "Home", FormMethod.Post, new { @class = "" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="post-project">
+        <h3>İletişim Formu</h3>
+        <div class="post-project-fields" style="background-color:transparent!important;">
+
+            <div class="space"></div>
+            <div class="form-group col-md-12">
+                <input type="text" name="name" class="form-control" required="required" placeholder="İsim">
+            </div>
+            <div class="form-group col-md-12">
+                <input type="email" name="email" class="form-control" required="required" placeholder="E-Mail">
+            </div>
+
+            <div class="form-group col-md-12">
+                <input type="text" name="subject" class="form-control" required="required" placeholder="Konu">
+            </div>
+            <div class="form-group col-md-12">
+                <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Mesajınız."></textarea>
+            </div>
+            <div class="form-group col-md-12">
+
+
+
+                <script src="https://www.google.com/recaptcha/api.js?render=_reCAPTCHA_site_key"></script>
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+                <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+                        async defer></script>
+                <script>
+                        window.onload = function () {
+                            document.getElementById("button2").disabled = true;
+                        };
+                        function enableBtn() {
+                            document.getElementById("button2").classList.add('btn-success');
+                            document.getElementById("button2").disabled = false;
+                        }
+                </script>
+                <div class="g-recaptcha" data-sitekey="6Lckq9kUAAAAAJyabU_QZ2jiBqSwai4ftF6sqqVK" data-callback="enableBtn"></div>
+                <button id="button2" class="btn btn-default " type="submit" value="submit">Gönder</button>
+
+            </div>
+
+        </div>
+        <div class="columns small-12 medium-7">
+            @{
+                if (TempData["mesaj"] != null)
+                {
+                    @Html.Raw(msj)
+                }
+            }
+        </div>
+    </div>
+}
+
+<div class="space"></div>
+
+

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<alenen.Konular>
+
+
+
+@foreach (var item in Model)
+{
+    <div class="posts-section">
+        <div class="post-bar">
+
+            <div class="post_topbar">
+                <div class="usy-dt">
+
+                    <img src="~/Content/images/uploads/kullaniciresim/@item.User.resim" alt="">
+                    <div class="usy-name">
+                        <h3>@item.User.kadi</h3>
+                       
+
+                        <span><img src="~/Content/images/clock.png" alt="" /> @item.olustarih</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="job_descp">
+                <h3>@item.konuad</h3>
+               
+                <span>@item.yorum</span>
+            </div>
+
+            <div class="job-status-bar">
+                <ul class="like-com"></ul>
+                <a href="/Konular/@item.konuad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-").Replace(",","-").Replace("'","-").Replace("}","-").Replace("*","-").Replace("_","-").Replace("=","-").Replace("$","-").Replace("#","-").Replace("%","-").Replace("&","-").Replace("[","-").Replace("]","-").Replace(".","-")/@item.konuid"><i class="fa fa-eye"></i>Tümünü Gör</a>
+            </div>
+        </div><!--post-bar end-->
+
+
+
+    </div><!--posts-section end-->
+}
+

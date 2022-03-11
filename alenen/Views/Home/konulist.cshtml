@@ -1,0 +1,79 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Konular>
+
+@{
+    ViewBag.Title = "konulist";
+    var kategori = (alenen.User)ViewBag.kategori;
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+<section class="companies-info">
+    <div class="container">
+        <div class="company-title">
+            <h3>En Son Eklenen Konular</h3>
+        </div><!--company-title end-->
+        <div class="companies-list">
+            <div class="row">
+
+
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="company_profile_info">
+                            <div class="company-up-info">
+
+                                <h4>@item.konuad</h4>
+
+                                <h3 class="">@item.yorum</h3><br />
+                                <img src="~/Content/images/uploads/kullaniciresim/@item.User.resim" />
+                                <h3>Konu Sahibi: @item.User.kadi</h3>
+                                <style>
+                                    .company-up-info img {
+                                        max-height: 50%;
+                                        max-width: 50%
+                                    }
+                                </style>
+
+                            </div>
+                            <a href="/Konular/@item.konuad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-")/@item.konuid">Tüm Yorumları Gör</a>
+                        </div><!--company_profile_info end-->
+                    </div>
+
+                }
+            
+                <div class="pagination">
+                    @Html.PagedListPager(Model, page => Url.Action("konulist", new { Page = page }))
+
+                </div>
+
+                <style>
+                    .company-up-info h4 {
+                        padding: 8px 12px;
+                        color: #e99023;
+                        font-size: 18px;
+                        font-weight: 400;
+                        margin-bottom: 10px;
+                    }
+
+                    .company-up-info h3 {
+                        padding: 8px 12px;
+                        color: #727272;
+                        font-size: 16px;
+                        font-weight: 200;
+                        margin-bottom: 10px;
+                    }
+                </style>
+
+
+
+
+
+
+
+
+            </div>
+        </div><!--companies-list end-->
+
+    </div>
+</section>

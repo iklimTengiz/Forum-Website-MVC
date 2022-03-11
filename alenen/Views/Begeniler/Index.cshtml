@@ -1,0 +1,66 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Begeni>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    var yorum = (alenen.Yorum)ViewBag.yorum;
+}
+
+
+<div class="space"></div>
+<div class="post-topbar">
+    <div class="user-picy">
+        <h1> Beğendiğiniz Tüm Yorumlar</h1>
+
+
+    </div><!--post-st end-->
+ 
+</div><!--post-topbar end-->
+<div>
+    @foreach (var item in Model)
+    {
+       
+        <div class="posts-section">
+            <div class="post-bar">
+
+                <div class="post_topbar">
+                    <div class="usy-dt">
+
+                        <img src="~/Content/images/uploads/kullaniciresim/@item.Yorum.User.resim" alt="">
+                        <div class="usy-name">
+                            <h3>@item.Yorum.User.kadi</h3>
+                            <h5>@item.Yorum.Konular.konuad</h5>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="job_descp">
+
+                    <p>@item.Yorum.icerik</p>
+
+                </div>
+
+                <div class="job-status-bar">
+              
+
+                    <a href="/Konular/@item.Yorum.Konular.konuad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-").Replace(",","-").Replace("'","-").Replace("}","-").Replace("*","-").Replace("_","-").Replace("=","-").Replace("$","-").Replace("#","-").Replace("%","-").Replace("&","-").Replace("[","-").Replace("]","-").Replace(".","-")/@item.Yorum.Konular.konuid"><i class="fa fa-eye"></i>Tümünü Gör</a>
+                    <p>@Html.ActionLink("Kaldır", "Sil", new { id = item.begeniid })</p> 
+                </div>
+            </div><!--post-bar end-->
+
+
+
+        </div><!--posts-section end-->
+    }
+</div>
+<div class="pagination col-lg-12 col-md-8">
+    @Html.PagedListPager(Model, page => Url.Action("Begenilerim", new { Page = page }))
+
+</div>
+
+
+
+

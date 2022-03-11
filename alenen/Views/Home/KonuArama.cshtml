@@ -1,0 +1,98 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Konular>
+@{
+    ViewBag.Title = "KonuArama";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+    var kategori = (alenen.Kategori)ViewBag.kategori;
+}
+
+
+<div class="space"></div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-4 pd-left-none no-pd">
+        <div class="main-left-sidebar no-margin">
+            @Html.Action("SolKonuMenusu", "PartialView")
+            @Html.Action("SolKategoriMenu", "PartialView")
+
+
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-9 col-md-8 pd-left-none no-pd">
+
+        <div class="main-ws-sec">
+            <div class="post-topbar">
+                <div class="user-picy">
+                    <p>Konuşmak istediğniz her şey için yeni bir konu açabilirsiniz. Haydi durmayın  sizde yeni bir konu açarak sormak istedilerinizi milyonlara ulaştırın.</p>
+                </div>
+                <div class="post-st">
+                    <ul>
+                        @{
+                            if (Session["LoginUser"] == null)
+                            {
+                                <li><a class="active " href="/" title="">Yeni Ekle</a></li>
+                            }
+
+                            else
+                            {
+                                <li><a class="post-jb active" href="#" title="">Yeni Ekle</a></li>
+
+                            }
+
+                        }
+
+
+                    </ul>
+                </div><!--post-st end-->
+            </div><!--post-topbar end-->
+            @foreach (var item in Model)
+            {
+                <div class="posts-section">
+                    <div class="post-bar">
+
+                        <div class="post_topbar">
+                            <div class="usy-dt">
+
+                                <img src="~/Content/images/uploads/kullaniciresim/@item.User.resim" alt="">
+                                <div class="usy-name">
+                                    <h3>@item.User.kadi</h3>
+                                    <h5>@item.Kategori.kategoriad</h5>
+                                    <span><img src="~/Content/images/clock.png" alt="" /> @item.olustarih</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="job_descp">
+                            <h3>@item.konuad</h3>
+                            <p>@item.yorum</p>
+
+                        </div>
+
+                        <div class="job-status-bar">
+                     
+                            <a href="/Konular/@item.konuad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-")/@item.konuid"><i class="la la-eye"></i>Daha Fazlası...</a>
+                        </div>
+                    </div><!--post-bar end-->
+
+
+
+                </div><!--posts-section end-->
+            }
+
+
+            <div class="pagination col-lg-12 col-md-8">
+                @Html.PagedListPager(Model, page => Url.Action("KonuArama", new { Page = page }))
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

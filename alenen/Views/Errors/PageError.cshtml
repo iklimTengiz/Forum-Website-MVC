@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "PageError";
+    Layout = null;
+}
+
+    <style>
+        .space{
+            height:50px;
+            width:100%;
+        }
+        .hata {
+            text-align: center;
+            font-size: 150px;
+            font-family: Dosis,sans-serif;
+            color: #b7b7b7;
+        }
+        body {
+            background-color: #f9fcfb;
+        }
+        .hatayazi {
+            text-align: center;
+            font-size: 37px;
+            color: #555555;
+            font-family: Dosis,sans-serif;
+        }
+        .anashata {
+            text-align: center;
+            font-size:20px;
+            text-decoration: none;
+            outline: none;
+            color: #f9fcfb;
+            border-radius: 10px;
+            background: #e99023;
+            font-family:Dosis,sans-serif;
+            padding:8px 14px;
+        }
+            .anashata:hover {
+                background:transparent;
+                text-decoration: none;
+                border:1px solid;
+                outline: none;
+                color: #e99023;
+            }
+    </style>
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="hata">@Response.StatusCode</div>
+    <div class="space"></div>
+    <div class="hatayazi">
+    <p>Ulaşmak istediğiniz sayfa yada eylem gerçekleştirilemeyecekmiş gibi görünüyor.<br /> Başka birşey deneyin.</p> 
+ 
+        <a href="/" class="anashata">Anasayfaya Dön</a>
+    </div>
+    <div class="space"></div>
+
+    <div class="space"></div>
+
+
+
+
+

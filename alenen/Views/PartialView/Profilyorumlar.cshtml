@@ -1,0 +1,126 @@
+﻿
+@model IEnumerable<alenen.Yorum>
+
+
+
+<div class="post-topbar">
+    <div class="user-picy">
+        <h1> Son Eklediğiniz Yorumlar</h1>
+
+
+    </div><!--post-st end-->
+    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapsetwo" aria-expanded="true" aria-controls="collapsetwo">
+        <i class="fa fa-2x fa-arrow-circle-down" style="float:right;"></i>
+
+    </button>
+</div><!--post-topbar end-->
+<style>
+    .onaytrue {
+        background-color: green;
+        font-size: 14px;
+        color: white;
+        padding: 8px;
+        font-weight: 500;
+        float: right;
+        margin: 8px;
+        border-radius: 8px;
+        border:none;
+    }
+
+    .durum {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .onayfalse {
+        background-color: darkred;
+        color: white;
+        padding: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        float: right;
+        margin: 8px;
+        border-radius: 8px;
+        border: none;
+    }
+</style>
+<div id="collapsetwo" class="collapse show" aria-labelledby="headingone" data-parent="#accordionExample">
+    @foreach (var item in Model)
+    {
+        var usr = Session["LoginUser"] as alenen.Yorum;
+
+
+        <div class="posts-section">
+            <div class="post-bar">
+
+                <div class="post_topbar">
+                    @if (item.onay == true)
+                    {
+                        <span class="durum"><i class="onaytrue">Onaylı ve Yayında</i></span>
+                      
+                    }
+                    else
+                    {
+                        <span class="durum"> <i class="onayfalse">Yayınlanmak için Onay Bekliyor</i></span>
+                      
+                    }
+                    <div class="usy-dt">
+
+                        <img src="~/Content/images/uploads/kullaniciresim/@item.User.resim" alt="">
+                        <div class="usy-name">
+                            <h3>@item.User.kadi</h3>
+                            <h5>@item.Konular.konuad</h5>
+                            <span><img src="~/Content/images/clock.png" alt="" /> @item.olustarih</span>
+                            <br />
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="job_descp">
+                    <p>@item.icerik</p>
+                    @{
+                        if (item.resim != null)
+                        {
+                            <img src="/Content/images/uploads/yorumres/@item.resim" style="height:auto; width:150px; float:left;" />
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                </div>
+
+                <div class="job-status-bar">
+                    <ul class="like-com">
+                        <li>
+                            @{
+                                if (Session["LoginUser"] == null)
+                                {
+                                    <p>  <a href="/UyeOl"><i class="la la-heart"></i>Beğen</a></p>
+                                }
+                                else
+                                {
+                                <li>
+                                    <a href="#" data-pID="@item.yorumid" class="btn btn-default begeniekle" onclick="begeni()"><i class="fa fa-heart "></i>Beğen</a>
+                                </li>
+
+                            }
+                            }
+
+
+                        </ul>
+
+                        <a href="/Konular/@item.Konular.konuad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-").Replace(",","-").Replace("'","-").Replace("}","-").Replace("*","-").Replace("_","-").Replace("=","-").Replace("$","-").Replace("#","-").Replace("%","-").Replace("&","-").Replace("[","-").Replace("]","-").Replace(".","-")/@item.konuid"><i class="fa fa-arrow-circle-o-right"></i>Konuya Git</a>
+                       
+                    </div>
+                </div><!--post-bar end-->
+
+
+
+            </div><!--posts-section end-->
+        }
+</div>
+

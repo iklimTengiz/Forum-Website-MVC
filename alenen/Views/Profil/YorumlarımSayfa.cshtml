@@ -1,0 +1,137 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Yorum>
+
+@{
+    var isLogin = (bool)ViewBag.IsLogin;
+    ViewBag.Title = "YorumlarımSayfa";
+    Layout = "~/Views/Shared/MainLayout.cshtml";
+}
+
+
+
+<div class="space"></div>
+<div class="post-topbar">
+    <div class="user-picy">
+        <h1> Tüm Yorumlarınız</h1>
+
+
+    </div><!--post-st end-->
+    <style>
+        .onaytrue {
+            background-color: green;
+            font-size: 14px;
+            color: white;
+            padding: 8px;
+            font-weight: 500;
+            float: right;
+            margin: 8px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        .durum {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .onayfalse {
+            background-color: darkred;
+            color: white;
+            padding: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            float: right;
+            margin: 8px;
+            border-radius: 8px;
+            border: none;
+        }
+    </style>
+
+</div><!--post-topbar end-->
+<div>
+    @foreach (var item in Model)
+    {
+        var usr = Session["LoginUser"] as alenen.Yorum;
+
+        <div class="posts-section">
+            <div class="post-bar">
+
+                <div class="post_topbar">
+                    @if (item.onay == true)
+                    {
+                        <span class="durum"> <i class="onaytrue">Onaylı ve Yayında</i></span>
+                        <span class="durum"><i class="onayfalse"> @Html.ActionLink("Kaldır", "yorumSil", new { id = item.yorumid })</i></span>
+                    }
+                    else
+                    {
+                        <span class="durum"> <i class="onayfalse">Yayınlanmak için Onay Bekliyor</i></span>
+                        <span class="durum"><i class="onayfalse"> @Html.ActionLink("Kaldır", "yorumSil", new { id = item.yorumid })</i></span>
+
+                    }
+                    <div class="usy-dt">
+
+                        <img src="~/Content/images/uploads/kullaniciresim/@item.User.resim" alt="">
+                        <div class="usy-name">
+                            <h3>@item.User.kadi</h3>
+                            <h5>@item.Konular.konuad</h5>
+                            <span><img src="~/Content/images/clock.png" alt="" /> @item.olustarih</span>
+                            <br />
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="job_descp">
+
+                    <p>@item.icerik</p>
+
+                    @{
+                        if (item.resim != null)
+                        {
+                            <img src="/Content/images/uploads/yorumres/@item.resim" style="height:auto; width:150px; float:left;" />
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                </div>
+
+                <div class="job-status-bar">
+                    <ul class="like-com">
+                        <li>
+                            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+                            @{
+                                if (isLogin == true)
+
+                                {
+                                    <a href="#" data-pid="@item.yorumid" class="btn btn-default begeniekle" onclick="begeni()"><i class="fa fa-heart "></i>Beğen</a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="btn btn-default"><i class="fa fa-heart "></i></a>
+                                }
+                            }
+                        </li>
+
+                    </ul>
+                   
+                    <a href="/Konular/@item.Konular.konuad.Replace(" ","-").Replace("+","-").Replace("(","-").Replace(")","-").Replace("/","-").Replace("?","-").Replace("!","-").Replace(",","-").Replace("'","-").Replace("}","-").Replace("*","-").Replace("_","-").Replace("=","-").Replace("$","-").Replace("#","-").Replace("%","-").Replace("&","-").Replace("[","-").Replace("]","-").Replace(".","-")/@item.konuid"><i class="fa fa-arrow-circle-o-right"></i>Konuya Git</a>
+                </div>
+            </div><!--post-bar end-->
+
+
+
+        </div><!--posts-section end-->
+    }
+</div>
+<div class="pagination col-lg-12 col-md-8">
+    @Html.PagedListPager(Model, page => Url.Action("YorumlarımSayfa", new { Page = page }))
+
+</div>
+
+

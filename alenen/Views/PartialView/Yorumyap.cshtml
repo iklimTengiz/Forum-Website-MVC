@@ -1,0 +1,173 @@
+﻿@model alenen.Yorum
+
+
+
+<style>
+        .yorumform {
+            border-radius: 8px;
+            padding: 18px 30px;
+            color: #686868;
+        }
+
+        label {
+            display: inline-block;
+            width: 5em;
+            padding: 0 1em;
+            text-align: right;
+        }
+
+        /* Hide the file input using
+    opacity */
+        [type=file] {
+            position: absolute;
+            filter: alpha(opacity=0);
+            opacity: 0;
+        }
+
+            input,
+            [type=file] + label {
+                border: 1px solid #CCC;
+                border-radius: 3px;
+                text-align: left;
+                padding: 10px;
+                width: 150px;
+                margin: 0;
+                left: 0;
+                position: relative;
+            }
+
+            [type=file] + label {
+                text-align: center;
+                top: 0.5em;
+                margin-bottom: 10px;
+                /* Decorative */
+                background: #333;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
+
+                [type=file] + label:hover {
+                    background: #3399ff;
+                }
+</style>
+
+@using (Html.BeginForm("Yorumyap", "PartialView", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (Session["LoginUser"] != null)
+    {
+     
+        <div class="form-horizontal ">
+            <h4>Yorumunuzu Yapabilirsiniz.</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+
+                <div class="col-md-10 yorumekle">
+                    <textarea class="col-md-12" id="icerik" name="icerik" rows="4" placeholder="Yorumunuzu giriniz..."></textarea>
+                    @Html.ValidationMessageFor(model => model.icerik, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group" style="float:right;">
+                    <div class="col-md-12 resimekle">
+                        <input type="file" id="f01" name="imagee" class="form-control" onchange="readURL(this);">
+                        <label for="f01">Resim Ekle</label>
+
+                        <p class="red">Resim eklemek zorunlu değildir.</p>
+                        @Html.ValidationMessageFor(model => model.resim, "", new { @class = "text-danger" })
+
+
+                        <script>
+                        $("[type=file]").on("change", function(){
+                        // Name of file and placeholder
+                        var file = this.files[0].name;
+                        var dflt = $(this).attr("placeholder");
+                        if($(this).val()!=""){
+                        $(this).next().text(file);
+                        } else {
+                        $(this).next().text(dflt);
+                        }
+                        });
+                        </script>
+
+                        
+
+
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <img id="blah" src="" style="width:80px; height:auto;">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Gönder" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+
+    }
+
+
+}
+
+<style>
+    .red {
+        color: darkred
+    }
+
+    .resimekle input {
+        background-color: #969696;
+        color: white;
+        box-shadow: 1px 7px 7px 0px #b1b1a9;
+        padding: 6px 12px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .yorumekle textarea {
+        background-color: #fff;
+        border: none;
+        width: 100%;
+        border-radius: 6px;
+        box-shadow: 1px 7px 7px 0px #b1b1a9;
+        color: black;
+        resize: none;
+        padding: 18px 27px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+</style>
+
+<script>
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(auto)
+                    .height(auto);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+

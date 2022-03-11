@@ -1,0 +1,80 @@
+﻿@model alenen.Kategori
+
+@{
+    /**/
+
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<p><i style="color:orangered">" @Model.kategoriad "</i>adlı kategoriyi düzenliyorsunuz.</p>
+<br />
+<p>Sistemde bulunan bir kategori adını tekarar kullanamazsınız kullanmanız durumunda hata alırsınız. Bu nedenle olmayan bir isim seçin.Her kategorinin adı eşsiz olmalıdır.</p>
+
+
+@using (Html.BeginForm("Edit", "Kategoriİslemleri", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.kategoriid)
+    @Html.HiddenFor(model => model.olustarih)
+    @Html.HiddenFor(model => model.olusturanid)
+    @Html.HiddenFor(model => model.anakatid)<!---Bu zıkkım updatete alanı null yapmadan yazmanı sağlıyor-->
+
+    <div class="form-group">
+        <p class="col-md-2">Kategori</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.kategoriad, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.kategoriad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <p class="col-md-2">Açıklama</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.aciklama, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.aciklama, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <p class="col-md-2">Oluşturulma Tarihi</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.olustarih, new { htmlAttributes = new { @class = "form-control", @readonly = "Readonly" } })
+            @Html.ValidationMessageFor(model => model.olustarih, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <p class="col-md-2">Resim:</p>
+        <div class="col-md-4">
+            <input type="file" name="imagee" class="form-control" onchange="readURL(this);">
+            @Html.ValidationMessageFor(model => model.resim, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <p class="col-md-2">Ana Kategori:</p>
+        <div class="col-md-4">
+            @Html.DropDownList("anakatid", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.anakatid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Kaydet" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Listeye Dön", "Index")
+</div>

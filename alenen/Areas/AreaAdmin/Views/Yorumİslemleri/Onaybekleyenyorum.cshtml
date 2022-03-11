@@ -1,0 +1,83 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Yorum>
+
+@{
+    ViewBag.Title = "Onaybekleyenyorum";
+    Layout = "~/Areas/AreaAdmin/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>Onay Bekleyen Yorumlar</h2>
+<br />
+<div class="AdminSearch">
+    @using (Html.BeginForm("Index", "Yorumİslemleri", FormMethod.Get))
+    {
+        <div style="padding-top:10px;">
+
+            @Html.TextBox("searching", null, new { id = "searching", @class = "inp_text inp_search", placeholder = "yorum içeriği ile arayınız...", name = "q", type = "text" })
+
+            <button value="ARA" type="submit"><i class="la la-search"></i>Ara</button>
+        </div>
+    }
+
+</div>
+
+
+
+
+<table id="myTable" class="table table-hover">
+    <tr>
+        <th>
+            İçerik
+        </th>
+        <th>
+            Onay
+        </th>
+        <th>
+            Resim
+        </th>
+        <th>
+            Oluşum Tarihi
+        </th>
+        <th>
+            Konu
+        </th>
+        <th>
+            Kullanıcı
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.icerik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.onay)
+            </td>
+            <td>
+                <img src="/Content/images/uploads/yorumres/@item.resim" style="height:50px;width:50px;" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.olustarih)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Konular.yorum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.kadi)
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit", new { id = item.yorumid }) |
+                @Html.ActionLink("Detaylar", "Details", new { id = item.yorumid }) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.yorumid })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { Page = page }))
+
+
