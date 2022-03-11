@@ -1,9 +1,9 @@
 # Forum-Website-MVC
 MVC forum web site with admin panel. Basic. (bootstrap)
-------------------------------------------------------------------------------
-Exist User; 
-User Name: RikaFrude
-Password: 1234
+
+www.alenen.com =>You can see this project live version in here.
+
+
 
 CONTACT FORM -------------------------------------------------------------------------
 Mail and password areas must change with real mail and password.
